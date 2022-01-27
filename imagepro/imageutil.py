@@ -10,26 +10,15 @@ import requests
 import shutil 
 from os import listdir
 from os.path import isfile, join
-import os 
-
-
+import os
 import pathlib
 
 current_path = pathlib.Path(__file__).parent.resolve()
-before_path =  pathlib.Path(current_path).parent.resolve() #os.path.join(paath , "../")
-
-# dir_path = os.path.dirname(os.path.realpath(__file__))
-# print(dir_path)
-
-# dir_path.split('/')
-
-# dirarr = dir_path.split('/')
-# dirarr.pop()
-# dirarr.append('unknownFavicons')
+before_path =  pathlib.Path(current_path).parent.resolve() 
 
 unknown_favicons_path = os.path.join(before_path ,"unknownFavicons") #'/'.join(dirarr)
 
-# print(unknown_favicons_path)
+print("unknown favicons path - "+unknown_favicons_path)
 
 json_data_path = 'dominentdata.json'
 
