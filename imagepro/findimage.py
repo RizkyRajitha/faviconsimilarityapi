@@ -1,17 +1,22 @@
 import traceback
 from .imageutil import getDominentColor , get_favicon_from_google , dominent_dataset , get_image_data_from_path_cv , compareFavs , image_data_dict
-
 import os 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+import pathlib
+
+current_path = pathlib.Path(__file__).parent.resolve()
+before_path =  pathlib.Path(current_path).parent.resolve() #os.path.join(paath , "../")
+
+
+# dir_path = os.path.dirname(os.path.realpath(__file__))
 # print(dir_path)
 
-dir_path.split('/')
+# dir_path.split('/')
 
-dirarr = dir_path.split('/')
-dirarr.pop()
-dirarr.append('favicons')
+# dirarr = dir_path.split('/')
+# dirarr.pop()
+# dirarr.append('favicons')
 
-favicons_path = '/'.join(dirarr)
+favicons_path = os.path.join(before_path ,"favicons") #'/'.join(dirarr)
 
 # print('favicons path - '+favicons_path)
 
@@ -30,7 +35,7 @@ def find_image(url):
             icons = dominent_dataset[dominentcolor['color']]
             print(icons)
             for icon in icons:
-                candidate_img_path = favicons_path+'/'+icon+".ico"
+                candidate_img_path =  os.path.join(favicons_path ,icon+".ico") # favicons_path+'/'+icon+".ico"
                 query_img_path = img_path
                 print("can - "+candidate_img_path)
                 print("query - "+query_img_path)
@@ -50,8 +55,8 @@ def find_image(url):
         except FileNotFoundError : 
             print("FileNotFoundError occurred ")        
             print(traceback.format_exc())
-        finally:
-            os.remove(img_path)
+        # finally:
+            # os.remove(img_path)
 
 
     else:

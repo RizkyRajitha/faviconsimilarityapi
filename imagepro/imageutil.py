@@ -12,16 +12,22 @@ from os import listdir
 from os.path import isfile, join
 import os 
 
-dir_path = os.path.dirname(os.path.realpath(__file__))
+
+import pathlib
+
+current_path = pathlib.Path(__file__).parent.resolve()
+before_path =  pathlib.Path(current_path).parent.resolve() #os.path.join(paath , "../")
+
+# dir_path = os.path.dirname(os.path.realpath(__file__))
 # print(dir_path)
 
-dir_path.split('/')
+# dir_path.split('/')
 
-dirarr = dir_path.split('/')
-dirarr.pop()
-dirarr.append('unknownFavicons')
+# dirarr = dir_path.split('/')
+# dirarr.pop()
+# dirarr.append('unknownFavicons')
 
-unknown_favicons_path = '/'.join(dirarr)
+unknown_favicons_path = os.path.join(before_path ,"unknownFavicons") #'/'.join(dirarr)
 
 # print(unknown_favicons_path)
 
@@ -35,8 +41,10 @@ def load_json_data():
       return data
 
 def load_favicons_from_dir():
-    dirarr.pop()
-    dirpath = '/'.join(dirarr)+'/favicons/'
+    # dirarr.pop()
+    # dirpath = '/'.join(dirarr)+'/favicons/'
+
+    dirpath = os.path.join(before_path ,"favicons")
     print(dirpath)
     imagelist = sorted([f for f in listdir(dirpath) if isfile(join(dirpath, f))])
     listlen = len(imagelist)
@@ -44,7 +52,8 @@ def load_favicons_from_dir():
     image_data_dict = dict()
     for img in imagelist:
         # print(img)
-        imgdata = get_image_data_from_path_cv(dirpath+img)
+        favicon_path = os.path.join(before_path ,"favicons",img)
+        imgdata = get_image_data_from_path_cv(favicon_path)
         # print(imgdata[0])
         image_data_dict[img] = imgdata
     print("---images loading complete---")
@@ -100,7 +109,8 @@ def getDominentColor(image_path):
 def get_favicon_from_google(url):
     
     urldomain = '_'.join(url.split("."))[8:]
-    filepath = unknown_favicons_path+"/"+urldomain+".ico"
+    filepath = os.path.join(unknown_favicons_path ,urldomain+".ico")
+    # filepath = unknown_favicons_path+"/"+urldomain+".ico"
     
     r = requests.get('https://www.google.com/s2/favicons?domain='+url, stream = True)
 
@@ -160,7 +170,7 @@ def com2imageMSE(img1 , img2):
     y = 1000
     try:
       y = np.square(np.subtract(img1,img2)).mean()
-      print(y)
+      # print(y)
     except Exception as e:
       pass
     return round(y , 4)
@@ -181,7 +191,7 @@ def compareFavs(mode , threshold , img1 , img2):
   if mode == "HISTCMP_CHISQR":
           comptarget = comp2imghistogramHISTCMP_CHISQR(img1 , img2)
 
-  print(comptarget)
+  # print(comptarget)
   if (comptarget<=threshold):
     return True
   else:

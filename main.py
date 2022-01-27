@@ -29,7 +29,6 @@ async def query(img_name:models.ImageQuery):
     if img_name_query[-1:]== '/':
         img_name_query = img_name_query[:-1]
 
-
     img_query_res = find_image(img_name_query)
 
     print(img_query_res)
