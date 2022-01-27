@@ -4,21 +4,9 @@ import os
 import pathlib
 
 current_path = pathlib.Path(__file__).parent.resolve()
-before_path =  pathlib.Path(current_path).parent.resolve() #os.path.join(paath , "../")
+before_path =  pathlib.Path(current_path).parent.resolve() 
 
-
-# dir_path = os.path.dirname(os.path.realpath(__file__))
-# print(dir_path)
-
-# dir_path.split('/')
-
-# dirarr = dir_path.split('/')
-# dirarr.pop()
-# dirarr.append('favicons')
-
-favicons_path = os.path.join(before_path ,"favicons") #'/'.join(dirarr)
-
-# print('favicons path - '+favicons_path)
+favicons_path = os.path.join(before_path ,"favicons") 
 
 mode='MSE'
 
